@@ -13,7 +13,7 @@ my_url = 'https://www.ebay.com/sch/13704/i.html?_from=R40&_nkw=&Photo%2520Type=A
 # print containers
 
 # element.send_keys(Keys.END)
-# time.sleep(8)
+# time.sleep(8)z
 # element.send_keys(Keys.HOME)
 # browser.close()
 
