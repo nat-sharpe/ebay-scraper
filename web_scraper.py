@@ -1,7 +1,7 @@
 from urllib2 import urlopen as uReq
 from bs4 import BeautifulSoup as soup
-from selenium import webdriver
-from selenium.webdriver.common.keys import Keys
+# from selenium import webdriver
+# from selenium.webdriver.common.keys import Keys
 import time
 
 my_url = 'https://www.ebay.com/sch/13704/i.html?_from=R40&_nkw=&Photo%2520Type=Ambrotype&LH_Complete=1&LH_Auction=1&_ipg=25&_pgn=1'
@@ -22,22 +22,17 @@ my_url = 'https://www.ebay.com/sch/13704/i.html?_from=R40&_nkw=&Photo%2520Type=A
 uClient = uReq(my_url)
 page_html = uClient.read()
 uClient.close()
+
 page_soup = soup(page_html, 'html.parser')
 
-count = page_soup.findAll('h1',{'class':'srp-controls__count-heading'})
-count_number = count_ 
+item_count = page_soup.findAll('h1',{'class':'srp-controls__count-heading'})
+count_number = item_count[0].text
 
-#grabs each product
+print count_number
+
+# #grabs each product
+
 containers = page_soup.findAll('li',{'class':'s-item'})
-
-# thumbnails = page_soup.findAll('img',{'class':'s-item__image-img'})
-# completed = []
-
-# for thumb in thumbnails:
-#     photo = thumb['src']
-#     completed.append(photo)
-
-# print page_html
 
 length = len(containers)
 
@@ -51,9 +46,14 @@ for i in range(7, length):
     listing2 = container.div.div.div.div.img['data-src']
     print 'next listing: %s' % listing2
 
+# same results as above loops but in single function
+def get_listings(start, stop, containers, tag):
+    listings = []
+    for i in range(start, stop):
+        container = containers[i]
+        single = container.div.div.div.div.img['tag']
+        single.append[listing]
+    return listings
 
-    # if 'data-src' in container:
-    #     print 'Unique listing: %s' % listing1
-    # else:
-    #     print 'Unique data: %s' % listing2
-    
+get_listings(0, 7, containers, 'src')
+get_listings(7, len(containers), containers, 'data-src')
