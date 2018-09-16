@@ -52,8 +52,9 @@ def get_listings(start, stop, containers, tag):
     for i in range(start, stop):
         container = containers[i]
         single = container.div.div.div.div.img['tag']
-        single.append[listing]
+        listings.append(single)
     return listings
 
 get_listings(0, 7, containers, 'src')
 get_listings(7, len(containers), containers, 'data-src')
+
