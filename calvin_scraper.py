@@ -5,12 +5,8 @@ from bs4 import BeautifulSoup
 import requests
 
 unique_listings = {
-    "https://i.ebayimg.com/thumbs/images/g/1ugAAOSwixlbVHYF/s-l225.jpg" : {
-        "tiltle" : "c1850s Ambrotype PORTRAIT Older Couple ANTIQUE American PHOTO Blind Man NEARMINT",
-        "listingURL" : "https://www.ebay.com/itm/c1850s-Ambrotype-PORTRAIT-Older-Couple-ANTIQUE-American-PHOTO-Blind-Man-NEARMINT/192659757613?hash=item2cdb6a9a2d:g:1ugAAOSwixlbVHYF",
-        "imgURL" : "https://i.ebayimg.com/thumbs/images/g/1ugAAOSwixlbVHYF/s-l225.jpg",
-        "price" : "$29.99"
-    },
+    "https://i.ebayimg.com/thumbs/images/g/FDAAAOSw0F9bntMB/s-l225.jpg" : {'title': '1/6 Plate Ambrotype In Case Cross—eyed Woman', 'listingURL': 'https://www.ebay.com/itm/1-6-Plate-Ambrotype-In-Case-Cross-eyed-Woman/202439561494?hash=item2f22569116:g:FDAAAOSw0F9bntMB', 'imgURL': 'https://i.ebayimg.com/thumbs/images/g/FDAAAOSw0F9bntMB/s-l225.jpg', 'price': '$49.95'},
+    'https://i.ebayimg.com/thumbs/images/g/OOwAAOSwWxNYzs7m/s-l225.jpg' : {'title': 'Antique Ambrotype Photo, Gentleman', 'listingURL': 'https://www.ebay.com/itm/Antique-Ambrotype-Photo-Gentleman/332808350434?hash=item4d7cec6ae2:g:OOwAAOSwWxNYzs7m', 'imgURL': 'https://i.ebayimg.com/thumbs/images/g/OOwAAOSwWxNYzs7m/s-l225.jpg', 'price': '$60.00'}
 }
 
 def write_page():
@@ -26,16 +22,18 @@ def write_page():
     def get_listings(start, stop, containers, tag):
         all_fresh = []
         for i in range(start, stop):
-            single_fresh = {}
             container = containers[i]
-            single_fresh["title"] = container.div.div.div.div.img['alt']
-            single_fresh["listingURL"] = container.div.div.a['href']
-            single_fresh["imgURL"] = container.div.div.div.div.img[tag]
-            single_fresh["price"] = container.div.find("div", {"class" : "s-item__info clearfix"}).find("div", {"class" : "s-item__details clearfix"}).div.span 
+            key = str(container.div.div.div.div.img[tag])
+            if key not in unique_listings:
+                single_fresh = {}
+                single_fresh["title"] = str(container.div.div.div.div.img['alt'])
+                single_fresh["listingURL"] = str(container.div.div.a['href'])
+                single_fresh["imgURL"] = key
+                single_fresh["price"] = str(container.div.find("div", {"class" : "s-item__info clearfix"}).find("div", {"class" : "s-item__details clearfix"}).div.span)
 
-            all_fresh.append(container.div.div.div.div.img[tag])
-            unique_listings[img]
-            
+                all_fresh.append(single_fresh)
+                unique_listings[key] = single_fresh
+
         return all_fresh
 
     list1 = get_listings(0, 7, containers, "src")
