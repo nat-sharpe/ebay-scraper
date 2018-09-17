@@ -42,13 +42,15 @@ def write_page():
     print("Generating HTML file... ", end="")
     f = open("index.html", "w")
 
+    f.write('<h1>' + 'FreshFinder' + '</h1><br/><br/>')
+
     # Loops thru lists of dictionaries and writes each listing
     def print_listing(list_to_check):
         for listing in list_to_check:
             # Writes the picture 
             f.write('<img src="' + listing['img_URL'] + '"/><br/>')
              # Writes the listing title & link
-            f.write('<a href"' + listing['listing_URL'] + '"/>' + listing['title'] + '</a><br/>')
+            f.write('<a href="' + listing['listing_URL'] + '"/>' + listing['title'] + '</a><br/>')
             # Writes the price
             f.write('<h3>' + listing['price'] + '</h3><br/>')
             # Adds space
